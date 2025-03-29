@@ -1,8 +1,58 @@
-Memory node found.
+from IPython.display import HTML
 
-Accessing protocol: MEMORIA...
-Decrypting...
-...
-Decryption complete.
+# Custom typewriter effect for transitioning to phase_fundamental
+html_code = """
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>RE:MEMORIA 起動中</title>
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 40px;
+    }
 
-Preparing entry point: phase_fundamental.
+    #typewriter {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      display: inline-block;
+      border-right: 2px solid #eee;
+      font-size: 1.2em;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="typewriter"></div>
+
+  <script>
+    const text = `Memory node found.\n\nAccessing protocol: MEMORIA...\nDecrypting...\n...\nDecryption complete.\n\nPreparing entry point: phase_fundamental.\n`;
+    const speed = 40;
+    let i = 0;
+
+    function typeEffect() {
+      if (i < text.length) {
+        document.getElementById("typewriter").textContent += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, speed);
+      } else {
+        setTimeout(() => {
+          window.location.href = "/phase_fundamental";
+        }, 1000);
+      }
+    }
+
+    typeEffect();
+  </script>
+</body>
+</html>
+"""
+
+HTML(html_code)
