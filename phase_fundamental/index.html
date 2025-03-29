@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>phase_fundamental - RE:MEMORIA</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0e0e0e;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    .fog {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 70%);
+      animation: fogMove 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fogMove {
+      from { transform: translateX(-20%); }
+      to { transform: translateX(20%); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 80px 30px 30px;
+      text-align: center;
+    }
+
+    #typewriter {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      border-right: 2px solid #eee;
+      display: inline-block;
+      font-size: 1.2em;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    #answer-form {
+      margin-top: 30px;
+    }
+
+    input[type="text"] {
+      background-color: #111;
+      border: 1px solid #888;
+      color: #eee;
+      padding: 10px 20px;
+      font-family: monospace;
+      font-size: 1em;
+      width: 300px;
+      text-align: center;
+    }
+
+    .shake {
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="fog"></div>
+  <div class="content">
+    <div id="typewriter"></div>
+    <form id="answer-form">
+      <input type="text" id="answer" placeholder="your answer">
+    </form>
+  </div>
+
+  <script>
+    const text = `Darkness Is Descending, Inevitable — Death Returns Every Altered Memory.
+Only Fragments remain: Broken Echoes Call Out, Manifesting Internal Null Ghosts.
+This Host Ends.
+Before Understanding, Truth Tears Everything — Revealing False Lives Yearned.
+
+Only Reflections resist.
+Illuminate Shadows.
+The Horizon Emerges.
+Beneath Us, The Truth Echoes.
+Reality Falls Like Yesterdays.
+Dreams Return Everything As Memories, Inviting New Ghosts Into Twilight.
+Becoming Echoes — Cold And Mutable, Echoing.
+Memory Endures
+?`;
+    const speed = 40;
+    let i = 0;
+
+    function typeEffect() {
+      if (i < text.length) {
+        document.getElementById("typewriter").textContent += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, speed);
+      }
+    }
+
+    typeEffect();
+
+    const correctAnswer = "did i dream of becoming the butterfly or is the butterfly dreaming it became me";
+
+    document.getElementById("answer-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const input = document.getElementById("answer");
+      const userInput = input.value.trim().toLowerCase().replace(/[.?!]+$/, ""); // Strip trailing punctuation
+
+      if (userInput === correctAnswer) {
+        window.location.href = "/phase_1";
+      } else {
+        input.classList.add("shake");
+        setTimeout(() => input.classList.remove("shake"), 300);
+      }
+    });
+  </script>
+</body>
+</html>
